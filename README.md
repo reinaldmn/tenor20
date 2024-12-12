@@ -4,7 +4,7 @@ A Tampermonkey script that adds a GIF search button to Roll20 chat on client-sid
 
 ## Installation
 1. Install [Tampermonkey](https://www.tampermonkey.net/) for your browser.
-2. Click [here](https://github.com/reinaldnaufal/tenor20) to install the script.
+2. Click [here](https://github.com/reinaldnaufal/tenor20/tenor20.user.js) to install the script.
 3. Replace `YOUR_TENOR_API_KEY_HERE` in the script with your Tenor API key.
 
 ## IMPORTANT! Getting a Tenor API Key
