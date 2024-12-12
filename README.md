@@ -10,7 +10,7 @@ Tenor20 is a Tampermonkey userscript that integrates GIF search functionality po
 
 2. **Add the Tenor20 Script**:
    - Open Tampermonkey and select `Create a new script`.
-   - Replace the default content with the code in [`tenor20.user.js`](https://github.com/reinaldnaufal/tenor20/tenor20.user.js).
+   - Replace the default content with the code in `tenor20.user.js`.
    - ***IMPORTANT!*** Replace the `YOUR_TENOR_API_KEY_HERE` with your own Tenor API KEY.
    - Save the script.
 
