@@ -12,8 +12,11 @@
 (function () {
     'use strict';
 
-    const TENOR_API_KEY = "YOUR_TENOR_API_KEY_HERE"; // Replace with your Tenor API key
+    
+    // IMPORTANT!!! Replace with your Tenor API key
+    const TENOR_API_KEY = "YOUR_TENOR_API_KEY_HERE"; 
 
+    
     // Add the GIF button to the chat interface
     function addGifButton() {
         const chatControls = $('#textchat-input');
