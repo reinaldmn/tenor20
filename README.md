@@ -31,14 +31,13 @@ Tenor20 is a Tampermonkey userscript that integrates GIF search functionality po
 
 - Node.js
 - A Tenor API key
-- 
+
 ### Contributing
 
 Found a bug or wants to add another feature?
 1. Fork the repository.
 2. Create a new branch.
 3. Submit a pull request.
-
 Or if you know my discord, simply message me, it's way easier.
 
 ## License
