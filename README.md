@@ -1,6 +1,7 @@
 # Tenor20
 
 Spice up your Roll20 chat by letting GIFs speak out your feeling instead of actual words.
+
 Tenor20 is a Tampermonkey userscript that integrates GIF search functionality powered by the Tenor API into Roll20.
 
 ## Installation
@@ -10,7 +11,7 @@ Tenor20 is a Tampermonkey userscript that integrates GIF search functionality po
 
 2. **Add the Tenor20 Script**:
    - Open Tampermonkey and select `Create a new script`.
-   - Replace the default content with the code in `tenor20.user.js`.
+   - Replace the default content with the code in [tenor20.user.js](./tenor20.user.js).
    - ***IMPORTANT!*** Replace the `YOUR_TENOR_API_KEY_HERE` with your own Tenor API KEY.
    - Save the script.
 
@@ -21,22 +22,24 @@ Tenor20 is a Tampermonkey userscript that integrates GIF search functionality po
      - Copy your API key and replace `YOUR_TENOR_API_KEY_HERE` in the script with your key.
 
 4. **Activate the Script**:
-   - Ensure the script is enabled in Tampermonkey.
-   - Navigate to Roll20, and the "GIF" button should appear in the chat interface.
+   - Toggle the script enabled in Tampermonkey.
+   - Go to a Roll20 game, and the "GIF" button should appear in the chat interface.
 
 ## Contribution & Modification
 
 ### Prerequisites
 
-- Node.js (optional, for development tasks)
-- A Tenor API key. You can obtain one by registering at [Tenor Developers](https://developers.google.com/tenor/guides/quickstart).
-
+- Node.js
+- A Tenor API key
+- 
 ### Contributing
 
-Contributions are welcome! Please follow these steps:
+Found a bug or wants to add another feature?
 1. Fork the repository.
-2. Create a new branch for your feature or bug fix.
-3. Submit a pull request with a detailed explanation of your changes.
+2. Create a new branch.
+3. Submit a pull request.
+
+Or if you know my discord, simply message me, it's way easier.
 
 ## License
 
