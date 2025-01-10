@@ -16,7 +16,7 @@
 (function ($) {
     'use strict';
 
-    const TENOR_API_KEY = "AIzaSyBTkzaOvxfD1sWCoLvcwwqch7vAYI4hQJY";
+    const TENOR_API_KEY = "YOUR_TENOR_API_KEY_HERE";
 
     function addGifButton() {
         const chatControls = $('#textchat-input');
