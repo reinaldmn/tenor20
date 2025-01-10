@@ -45,14 +45,18 @@
 
 // Add this function after the 'use strict' statement
 function getThemeColors() {
-    // Check if body has dark theme class
-    const isDarkMode = document.body.classList.contains('dark');
+    // Roll20 uses the 'ui-dialog' class to determine theme
+    const dialogElement = document.querySelector('.ui-dialog');
+    const computedStyle = window.getComputedStyle(dialogElement || document.body);
+    const isDarkMode = computedStyle.backgroundColor.match(/rgba?\((\d+)/)[1] < 128;
+    
     return {
-        background: isDarkMode ? '#1a1a1a' : '#fff',
+        background: isDarkMode ? '#2c2c2c' : '#ffffff',
         text: isDarkMode ? '#ffffff' : '#000000',
-        border: isDarkMode ? '#444' : '#ccc',
-        inputBackground: isDarkMode ? '#2d2d2d' : '#fff',
-        buttonBackground: isDarkMode ? '#383838' : '#f0f0f0'
+        border: isDarkMode ? '#444444' : '#cccccc',
+        inputBackground: isDarkMode ? '#383838' : '#ffffff',
+        buttonBackground: isDarkMode ? '#404040' : '#f0f0f0',
+        buttonText: isDarkMode ? '#ffffff' : '#000000'
     };
 }
     
@@ -76,11 +80,16 @@ function toggleGifSearchPopup() {
         borderRadius: '5px',
         zIndex: 9999,
         overflow: 'hidden',
-        boxShadow: '0 2px 10px rgba(0,0,0,0.2)',
-        color: colors.text
+        boxShadow: isDarkMode ? '0 2px 10px rgba(0,0,0,0.4)' : '0 2px 10px rgba(0,0,0,0.2)',
+        color: colors.text,
+        transition: 'background-color 0.3s, color 0.3s, border-color 0.3s'
     });
 
-    const searchInput = $('<input>', { type: 'text', placeholder: 'Search GIFs...' }).css({
+    const searchInput = $('<input>', { 
+        type: 'text', 
+        placeholder: 'Search GIFs...',
+        class: 'gif-search-input'
+    }).css({
         width: 'calc(100% - 120px)',
         margin: '10px',
         padding: '5px',
@@ -88,19 +97,24 @@ function toggleGifSearchPopup() {
         background: colors.inputBackground,
         color: colors.text,
         border: `1px solid ${colors.border}`,
-        borderRadius: '3px'
+        borderRadius: '3px',
+        transition: 'background-color 0.3s, color 0.3s, border-color 0.3s'
     });
 
-    const searchButton = $('<button>', { text: 'Search' }).css({
+    const searchButton = $('<button>', { 
+        text: 'Search',
+        class: 'gif-search-button'
+    }).css({
         display: 'inline-block',
         margin: '10px 10px 10px 0',
         padding: '5px 10px',
         cursor: 'pointer',
         height: '29px',
         background: colors.buttonBackground,
-        color: colors.text,
+        color: colors.buttonText,
         border: `1px solid ${colors.border}`,
-        borderRadius: '3px'
+        borderRadius: '3px',
+        transition: 'background-color 0.3s, color 0.3s, border-color 0.3s'
     });
 
     const loadingIndicator = $('<div>', { text: 'Loading...', class: 'loading-indicator' }).css({
@@ -237,44 +251,52 @@ function searchGifs(query, container, loader) {
 
 // Add theme observer
 function setupThemeObserver() {
+    // Function to update popup styling
+    function updatePopupTheme() {
+        const colors = getThemeColors();
+        const existingPopup = $('.gif-search-popup');
+        if (existingPopup.length) {
+            existingPopup.css({
+                background: colors.background,
+                border: `1px solid ${colors.border}`,
+                color: colors.text
+            });
+            
+            existingPopup.find('input').css({
+                background: colors.inputBackground,
+                color: colors.text,
+                border: `1px solid ${colors.border}`
+            });
+            
+            existingPopup.find('button').css({
+                background: colors.buttonBackground,
+                color: colors.buttonText,
+                border: `1px solid ${colors.border}`
+            });
+            
+            existingPopup.find('.loading-indicator').css({
+                color: colors.text
+            });
+        }
+    }
+
+    // Watch for theme changes
     const observer = new MutationObserver((mutations) => {
-        mutations.forEach((mutation) => {
-            if (mutation.target.classList &&
-                (mutation.oldValue?.includes('dark') !== mutation.target.classList.contains('dark'))) {
-                // Theme has changed, update existing popup if it exists
-                const existingPopup = $('.gif-search-popup');
-                if (existingPopup.length) {
-                    const colors = getThemeColors();
-                    existingPopup.css({
-                        background: colors.background,
-                        border: `1px solid ${colors.border}`,
-                        color: colors.text
-                    });
-                    
-                    existingPopup.find('input').css({
-                        background: colors.inputBackground,
-                        color: colors.text,
-                        border: `1px solid ${colors.border}`
-                    });
-                    
-                    existingPopup.find('button').css({
-                        background: colors.buttonBackground,
-                        color: colors.text,
-                        border: `1px solid ${colors.border}`
-                    });
-                    
-                    existingPopup.find('.loading-indicator').css({
-                        color: colors.text
-                    });
-                }
+        for (const mutation of mutations) {
+            if (mutation.type === 'attributes' || 
+                mutation.type === 'characterData' || 
+                mutation.target.classList.contains('ui-dialog')) {
+                updatePopupTheme();
+                break;
             }
-        });
+        }
     });
 
+    // Observe both body and ui-dialog elements
     observer.observe(document.body, {
         attributes: true,
-        attributeFilter: ['class'],
-        attributeOldValue: true
+        childList: true,
+        subtree: true
     });
 }
 
